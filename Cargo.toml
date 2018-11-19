@@ -1,0 +1,9 @@
+[package]
+name = "lamport_signatures"
+version = "0.1.0"
+authors = ["Isan-Rivkin <isanrivkin@gmail.com>"]
+
+[dependencies]
+rand = "0.6.0"
+ring = "0.13.5"
+bit = "0.1.1"
