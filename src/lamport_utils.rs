@@ -70,6 +70,7 @@ impl PubKey{
                     true => t.1,
                     false => t.0
                 };
+                //
                 let test_hash = hash(&signature[counter]);
                 if test_hash != secret_num_hash{
                     verified = false;
