@@ -1,13 +1,17 @@
 [package]
 name = "lamport_signatures"
-version = "0.2.2"
+version = "0.2.3"
 authors = ["Isan-Rivkin <isanrivkin@gmail.com>"]
 description = "Lamport signatures implementation post quantum cryptography"
 keywords = ["cryptography", "signature", "quantum"]
 categories = ["api", "cryptography", "signatures"]
 license = "MIT"
+readme = "README.md"
 repository = "https://github.com/Isan-Rivkin/lamport-signatures-rs"
+homepage = "https://github.com/Isan-Rivkin/lamport-signatures-rs"
 
 [dependencies]
 ring = "0.13.5"
 bit = "0.1.1"
+
+
