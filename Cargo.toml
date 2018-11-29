@@ -1,6 +1,6 @@
 [package]
 name = "lamport_signatures"
-version = "0.2.3"
+version = "0.2.4"
 authors = ["Isan-Rivkin <isanrivkin@gmail.com>"]
 description = "Lamport signatures implementation post quantum cryptography"
 keywords = ["cryptography", "signature", "quantum"]
