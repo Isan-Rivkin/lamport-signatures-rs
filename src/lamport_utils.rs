@@ -91,6 +91,18 @@ fn generate_pair(sr : &SystemRandom)->Result<([u8;32],[u8;32]),Box<Unspecified>>
     Ok((a,b))
 }
 
+pub fn gen_secret_key_with_input(entrophy : [u8;256])->Result<(PrivKey),Box<Unspecified>>{
+    let sr = SystemRandom::new();
+
+    // entrophy.into_iter().map(|s| s % 255);
+    let mut pairs = Vec::with_capacity(256);
+    for i in 0..256{
+        let (a,b) = generate_pair(&sr)?;
+        //TODO:: add entrophy here .... to a and b 
+        pairs.push((a,b));
+    }   
+    Ok((PrivKey{tuples : pairs}))
+}
 pub fn gen_secret_key()->Result<(PrivKey),Box<Unspecified>>{
     let sr = SystemRandom::new();
     let mut pairs = Vec::with_capacity(256);
