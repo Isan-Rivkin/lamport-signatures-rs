@@ -13,7 +13,8 @@
 //!
 //! # Use at your own risk.
 //! Example:
-//! ```rust
+//! ```ignore
+//! use lamport_signatures;
 //! // generate private key 
 //! let priv_key = lamport_utils::gen_secret_key().unwrap();
 //! // derive public key 
@@ -30,7 +31,7 @@
 
 extern crate ring;
 extern crate bit;
-pub mod lamport_utils;
+mod lamport_utils;
 
 #[cfg(test)]
 mod tests {
