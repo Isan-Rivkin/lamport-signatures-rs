@@ -31,7 +31,7 @@
 
 extern crate ring;
 extern crate bit;
-mod lamport_utils;
+pub mod lamport_utils;
 
 #[cfg(test)]
 mod tests {
