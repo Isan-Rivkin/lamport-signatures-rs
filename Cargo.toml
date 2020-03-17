@@ -13,5 +13,3 @@ homepage = "https://github.com/Isan-Rivkin/lamport-signatures-rs"
 [dependencies]
 ring = "0.13.5"
 bit = "0.1.1"
-
-

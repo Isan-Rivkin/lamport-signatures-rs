@@ -3,23 +3,23 @@ In cryptography, a Lamport signature or Lamport one-time signature scheme is a m
 
 # Never tested in production, use at your own risk
 
-# How to Use 
+# How to Use
 
 ```rust
 extern crate lamport_signatures;
 use lamport_signatures::lamport_utils;
 
-// generate private key 
+// generate private key
 let priv_key = lamport_utils::gen_secret_key().unwrap();
-// derive public key 
+// derive public key
 let pub_key = lamport_utils::derive_pub_key(&priv_key);
-// create some message 
+// create some message
 let msg = "hi elichai2, some secret msg";
-// digest the msg 
+// digest the msg
 let msg_digest = lamport_utils::hash(msg.as_bytes());
-// sign the digest 
+// sign the digest
 let signature : Vec<[u8;32]> = priv_key.sign(&msg_digest);
-// verify signature against public key 
+// verify signature against public key
 let is_valid = pub_key.verify(&msg_digest, &signature);
 ```
 

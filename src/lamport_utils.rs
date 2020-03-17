@@ -3,9 +3,11 @@ use ring::error::Unspecified;
 use ring::digest;
 use bit::BitIndex;
 
+#[derive(Debug)]
 pub struct PrivKey {
     tuples : Vec<([u8;32],[u8;32])>
 }
+
 impl PrivKey{
     pub fn get_tuple(&self,i : usize )->([u8;32],[u8;32]){
         return self.tuples[i]
@@ -32,9 +34,12 @@ impl PrivKey{
         signature
     }
 }
+
+#[derive(Debug)]
 pub struct PubKey {
     hashes : Vec<([u8; 32], [u8; 32])>,
 }
+
 impl PubKey{
     pub fn get_tuple(&self, i : usize)->([u8; 32], [u8; 32]){
         return self.hashes[i];
@@ -50,14 +55,14 @@ impl PubKey{
     }
     /*
     for each bit in digest:
-    -  if bit==1 : 
-        get hash from bit index, tuple 1 
-    -  if bit ==0 : 
+    -  if bit==1 :
+        get hash from bit index, tuple 1
+    -  if bit ==0 :
         get hash from bit index, tuple 0
-    
-    hash the value in signature[bit index] 
-    and compare the hashes. 
-    */ 
+
+    hash the value in signature[bit index]
+    and compare the hashes.
+    */
     pub fn verify(&self,digest : &[u8;32],  signature : &Vec<[u8;32]>)->bool{
         let mut counter = 0;
         let mut verified = true;
@@ -75,7 +80,7 @@ impl PubKey{
                 if test_hash != secret_num_hash{
                     verified = false;
                     break;
-                } 
+                }
                 counter += 1;
             }
         }
@@ -98,24 +103,26 @@ pub fn gen_secret_key_with_input(entrophy : [u8;256])->Result<(PrivKey),Box<Unsp
     let mut pairs = Vec::with_capacity(256);
     for i in 0..256{
         let (a,b) = generate_pair(&sr)?;
-        //TODO:: add entrophy here .... to a and b 
+        //TODO:: add entrophy here .... to a and b
         pairs.push((a,b));
-    }   
+    }
     Ok((PrivKey{tuples : pairs}))
 }
+
 pub fn gen_secret_key()->Result<(PrivKey),Box<Unspecified>>{
     let sr = SystemRandom::new();
     let mut pairs = Vec::with_capacity(256);
     for i in 0..256{
         let (a,b) = generate_pair(&sr)?;
         pairs.push((a,b));
-    }   
+    }
     Ok((PrivKey{tuples : pairs}))
 }
+
 pub fn derive_pub_key(privKey : & PrivKey)-> PubKey{
     let mut hashes: Vec<([u8; 32], [u8; 32])> = Vec::with_capacity(privKey.tuples_amount());
     for i in 0..privKey.tuples_amount(){
-        let (secA,secB) = privKey.get_tuple(i);         
+        let (secA,secB) = privKey.get_tuple(i);
         let hashA = digest::digest(&digest::SHA256, &secA);
         let hashB = digest::digest(&digest::SHA256, &secB);
         let mut array_hashA = [0u8; 32];
@@ -126,15 +133,10 @@ pub fn derive_pub_key(privKey : & PrivKey)-> PubKey{
     }
     PubKey{hashes: hashes}
 }
+
 pub fn hash(data : &[u8])->[u8;32]{
     let digest = digest::digest(&digest::SHA256,&data);
     let mut byte_result = [0u8;32];
     byte_result.copy_from_slice(digest.as_ref());
     byte_result
 }
-
-
-
-
-
-
