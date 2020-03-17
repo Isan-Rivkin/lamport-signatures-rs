@@ -50,6 +50,6 @@ mod tests {
         let signature : Vec<[u8;32]> = priv_key.sign(&msg_digest);
         // verify signature against public key
         let is_valid = pub_key.verify(&msg_digest, &signature);
-        assert_eq!(true,is_valid );
+        assert_eq!(true,is_valid);
     }
 }
